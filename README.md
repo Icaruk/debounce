@@ -7,7 +7,7 @@
 **debounce** is a javascript debouncer that instead returning a debounced function it will execute it after the specified time.
 
 - 😃 Easy to use.
-- 🚀 Lightweight (9 lines of code).
+- 🚀 Lightweight 1.4 KB (9 lines of code).
 - ⚪️ Zero dependencies.
 
 

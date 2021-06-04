@@ -1,25 +1,25 @@
 {
-	"name": "debounce",
-	"version": "1.0.0",
-	"description": "Javascript simple debouncer",
-	"main": "index.js",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/Icaruk/debounce.git"
-	},
-	"bugs": {
-		"url": "https://github.com/Icaruk/debounce"
-	},
-	"homepage": "https://github.com/Icaruk",
-	"scripts": {
-		"test": "jest"
-	},
-	"keywords": [
-		"js",
-		"javascript",
-		"debounce",
-		"node"
-	],
-	"author": "Icaruk <adri-rk@hotmail.com>",
-	"license": "ISC"
+  "name": "@icaruk/debounce",
+  "version": "1.0.0",
+  "description": "Javascript simple debouncer",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Icaruk/debounce.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Icaruk/debounce"
+  },
+  "homepage": "https://github.com/Icaruk",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "debounce",
+    "node"
+  ],
+  "author": "Icaruk <adri-rk@hotmail.com>",
+  "license": "ISC"
 }
