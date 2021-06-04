@@ -1,15 +1,14 @@
 <div style="text-align:center">
-	<h1> objDeepSet </h1>
-	<!-- <img src="https://i.gyazo.com/b4283bdaf6138e1f0b1e41755cb49a8a.png" /> -->
+	<h1> debounce </h1>
 </div>
 
 
 
-**objDeepSet** is a javascript **immutable object deep setter**.
+**debounce** is a javascript debouncer that instead returning a debounced function it will execute it after the specified time.
 
-- 🚀 Lightweight.
+- 😃 Easy to use.
+- 🚀 Lightweight (9 lines of code).
 - ⚪️ Zero dependencies.
-- 💫 Works great with Redux.
 
 
 
@@ -20,47 +19,9 @@
 # ⬇️ Import
 
 ```js
-const objDeepSet = require("objDeepSet");
+const debounce = require("@icaruk/debounce");
 ```
 
-
-
-<br>
-
-
-
-# 🔮Basic examples:
-
-```js
-
-let car: {
-	id: "V-1234-AB",
-	color: "Black",
-	wheels: {
-		"1": {
-			status: "ok"
-		},
-		"2". {
-			status: "ok"
-		}
-		"3". {
-			status: "damaged",
-			damage: {
-				priority: 10,
-				description: "puncture",
-				needsReparation: true
-			}
-		}
-		"4". {
-			status: "ok"
-		}
-	}
-}
-
-let newObj = objDeepSet("wheels.3.damage.priority", 9);
-
-
-```
 
 
 <br>
@@ -70,111 +31,55 @@ let newObj = objDeepSet("wheels.3.damage.priority", 9);
 # 🧭 Usage:
 
 ```js
-
-objDeepSet(object, key, value, options);
-
+debounce(wait, fnc, id);
 ```
 
-- **object** (object)
-	The original object you want to modify. It will be cloned internally unless you set "mutate: true" on options.
-- **key** (string | array)
-	Key that will be modified. Examples:
-	- "user"
-	- "user.name"
-	- ["user", "name"]
-	- "" (this will point to the root of the object)
-- **options** (object)
-	- merge (boolean)
-		Default false. Merge (true) or replace (false) the object with the value.
-	- mutate (boolean)
-		Default false. Mutate (true) or clone (false) the original object.
-
-
-**Returns** The new or modified object.
+- **wait** (number)
+	Number of miliseconds that must pass before the function executes.
+- **fnc** (function)
+	Function that will be executed.
+- **id** (string)
+	Unique identifier of the performed action. If the `id` is ommited the `fnc` argument will be stringified and used as `id` (less optimal).
 
 
 
-<br>
+# 🔮 Examples:
 
 
-
-# 🧭 Advanced examples:
-
+Without id
 ```js
 
-
-let dog = {
-	name: "Woof",
-	color: "brown",
-	age: 5,
-	legs: {
-		"topLeft": "ok",
-		"topRight": "ok",
-		"bottomLeft": "ok",
-		"bottomRight": "ok",
-	}
+const hello = (name) => {
+	console.log( "Hello!" );
 };
 
+debounce(1000, hello);
+debounce(1000, hello);
+debounce(1000, hello);
 
+// > Outputs:
+// Hello!
 
-let newDog = objDeepSet(dog, "legs.bottomLeft", "injury");
-/*
-OUTPUT: 
-
-	{
-		name: 'Woof',
-		color: 'brown',
-		age: 5,
-		legs: {
-			topLeft: 'ok',
-			topRight: 'ok',
-			bottomLeft: 'injury',
-			bottomRight: 'ok'
-		}
-	}
-*/
+```
+<br>
 
 
 
-let newDog2 = objDeepSet(dog, "", {
-	name: "Mike",
-	color: "red",
-});
-/*
-OUTPUT: 
+With id
 
-	{
-		name: 'Mike',
-		color: 'red',
-	}
-*/
+```js
 
+const hello = (name) => {
+	console.log( "Hello!" );
+};
 
+debounce(1000, hello, "button");
+debounce(1000, hello, "button");
+debounce(1000, hello, "button_2");
 
-let newDog3 = objDeepSet(dog, "legs.bottomLeft", {
-	feathers: 1564,
-	wings: {
-		left: 'ok',
-		right: 'ok',
-	}
-});
-console.log( newDog3 );
-/*
-OUTPUT: 
-
-	{
-		name: 'Woof',
-		color: 'brown',
-		age: 5,
-		legs: {
-			topLeft: 'ok',
-			topRight: 'ok',
-			bottomLeft: { feathers: 1564, wings: [Object] },
-			bottomRight: 'ok'
-		}
-	}
-
-*/
+// > Outputs:
+// Hello!
+// Hello!
 
 
 ```
@@ -185,45 +90,49 @@ OUTPUT:
 
 
 
-# 🌌 Redux implementation:
+# 🔮 Passing arguments:
 
-your_reducer.js
+✅ GOOD
 ```js
 
+const hello = (name = "") => {
+	console.log( `Hello ${name}!` );
+};
 
-const userReducer = (
-	state = {},
-	action
-) => {
-	
-	switch (action.type) {
-		
-		case "USER_SET": {
-			
-			const {merge = true} = action.options ?? {};
-			
-			let newstate = objSet(state, action.key, action.value, {
-				merge,
-			});
-			
-			return newstate;
-		};
-		
-		default: return state;
-		
-	};
-		
+debounce(1000, () => hello("Mike"));
+debounce(1000, () => hello("Bob"));
+debounce(1000, () => hello("Susan"));
+
+// > Outputs:
+// Hello Mike!
+// Hello Bob!
+// Hello Susan!
+
+```
+<br>
+
+
+
+❌ BAD
+```js
+
+const hello = (name = "") => {
+	name = " " + name;
+	console.log( `Hello ${name}!` );
+};
+
+debounce(1000, hello("Mike")); // ❌
+debounce(1000, hello("Bob")); // ❌
+debounce(1000, hello("Susan")); // ❌
+
+// > Outputs:
+// Hello!
+// [Error] debounce: fnc is null
+// Hello!
+// Hello!
+// [Error] debounce: fnc is null
+// [Error] debounce: fnc is null
 
 ```
 
 
-How you dispatch that action
-```js
-
-// Login example
-dispatch({type: "USER_SET", key: "username", value: "Mike"});
-
-// Logout example
-dispatch({type: "USER_SET", key: "", value: {}, options: {merge: false} });
-
-```
