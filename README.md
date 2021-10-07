@@ -4,7 +4,7 @@
 
 
 
-**debounce** is a javascript debouncer that instead returning a debounced function it will execute it after the specified time.
+**debounce** is a javascript debouncer (and throttle) that instead returning a debounced function it will execute it after the specified time.
 
 - 😃 Easy to use.
 - 🚀 Lightweight 1.4 KB (9 lines of code).
@@ -40,13 +40,15 @@ debounce(wait, fnc, id);
 	Function that will be executed.
 - **id** (string)
 	Unique identifier of the performed action. If the `id` is ommited the `fnc` argument will be stringified and used as `id` (less optimal).
+- **reverse** (boolean)
+	Default `false`. If `true` it will throttle instead debounce.
 
 
 
 # 🔮 Examples:
 
 
-Without id
+Debounce without id
 ```js
 
 const hello = (name) => {
@@ -65,11 +67,11 @@ debounce(1000, hello);
 
 
 
-With id
+Debounce with id
 
 ```js
 
-const hello = (name) => {
+const hello = () => {
 	console.log( "Hello!" );
 };
 
@@ -80,6 +82,27 @@ debounce(1000, hello, "button_2");
 // > Outputs:
 // Hello!
 // Hello!
+
+
+```
+<br>
+
+
+
+Throttle with id
+
+```js
+
+const hello = (name) => {
+	console.log( `Hello ${name}!` );
+};
+
+debounce(1000, () => hello(0), "button", true);
+debounce(1000, () => hello(1), "button", true);
+debounce(1000, () => hello(2), "button", true);
+
+// > Outputs:
+// Hello 0!
 
 
 ```
