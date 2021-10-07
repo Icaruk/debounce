@@ -7,7 +7,7 @@
 **debounce** is a javascript debouncer (and throttle) that instead returning a debounced function it will execute it after the specified time.
 
 - 😃 Easy to use.
-- 🚀 Lightweight 1.4 KB (9 lines of code).
+- 🚀 Lightweight (1.6 KB)
 - ⚪️ Zero dependencies.
 
 
@@ -31,7 +31,7 @@ const debounce = require("@icaruk/debounce");
 # 🧭 Usage:
 
 ```js
-debounce(wait, fnc, id);
+debounce(wait, fnc, id, reverse);
 ```
 
 - **wait** (number)
@@ -42,6 +42,10 @@ debounce(wait, fnc, id);
 	Unique identifier of the performed action. If the `id` is ommited the `fnc` argument will be stringified and used as `id` (less optimal).
 - **reverse** (boolean)
 	Default `false`. If `true` it will throttle instead debounce.
+
+
+
+<br>
 
 
 
